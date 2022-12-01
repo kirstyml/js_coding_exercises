@@ -57,11 +57,15 @@ export function reverseAllWords(words) {
 export function countLinuxUsers(users) {
   if (users === undefined) throw new Error("users is required");
   // Add your code here!
+  const linuxUsers = users.filter(user => user.type === "Linux");
+  return linuxUsers.length;
 }
 
 export function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
+  const mean = scores.reduce((acc, curr) => acc + curr / scores.length, 0);
+  return Math.round(mean * 100) / 100;
 }
 
 export function simpleFizzBuzz(n) {
