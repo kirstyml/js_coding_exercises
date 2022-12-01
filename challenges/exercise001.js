@@ -42,11 +42,16 @@ export function getMiddleCharacter(str) {
 export function reverseWord(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
+  const chars = word.split("");
+  const reverseChars = chars.reverse();
+  const reverseString = reverseChars.join("");
+  return reverseString;
 }
 
 export function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
   // Add your code here!
+
 }
 
 export function countLinuxUsers(users) {
