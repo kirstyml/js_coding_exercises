@@ -23,11 +23,16 @@ export const count1sand0s = (str) => {
 export const reverseNumber = (n) => {
   if (n === undefined) throw new Error("n is required");
   // Your code here!
+  const digits = n.toString().split("").reverse().join("");
+  return parseInt(digits);
 };
 
 export const sumArrays = (arrs) => {
   if (arrs === undefined) throw new Error("arrs is required");
   // Your code here!
+  const flatArr = arrs.reduce((acc, curr) => acc.concat(curr), []);
+  const sumFlatArr = flatArr.reduce((acc, curr) => acc + curr);
+  return sumFlatArr;
 };
 
 export const arrShift = (arr) => {
