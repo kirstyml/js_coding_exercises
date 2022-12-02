@@ -28,4 +28,12 @@ export function duplicateNumbers(arr1, arr2) {
   if (arr1 === undefined) throw new Error("arr1 is required");
   if (arr2 === undefined) throw new Error("arr2 is required");
   // Your code here!
+  const appearInBoth = arr1.filter(value => arr2.includes(value));
+  const appearInBothNoDups = appearInBoth.reduce((acc, curr) => {
+    if (!acc.includes(curr)) {
+      return [...acc, curr];
+    }
+    return acc;
+  }, []);
+  return appearInBothNoDups.sort((a,b) => a - b);
 }
