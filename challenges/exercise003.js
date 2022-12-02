@@ -35,5 +35,5 @@ export function duplicateNumbers(arr1, arr2) {
     }
     return acc;
   }, []);
-  return appearInBothNoDups.sort((a,b) => a - b);
+  return appearInBothNoDups.sort((a, b) => a - b);
 }
