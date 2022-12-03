@@ -16,7 +16,7 @@ export const count1sand0s = (str) => {
       ...acc,
       [curr]: currCount + 1
     }
-  }, {0: 0, 1: 0});
+  }, { 0: 0, 1: 0 });
   return count;
 };
 
@@ -39,10 +39,10 @@ export const arrShift = (arr) => {
   if (arr === undefined) throw new Error("arr is required");
   // Your code here!
   return arr.map((value, i) => {
-    if(i === 0) {
+    if (i === 0) {
       return arr[arr.length - 1];
     }
-    if(i === arr.length - 1) {
+    if (i === arr.length - 1) {
       return arr[0];
     }
     return value;
@@ -66,4 +66,17 @@ export const findNeedle = (haystack, searchTerm) => {
 export const getWordFrequencies = (str) => {
   if (str === undefined) throw new Error("str is required");
   // Your code here!
+  const wordsArr = str.split(" ");
+  const lowCaseWords = wordsArr.map(word => word.toLowerCase().replace(/[^a-zA-Z ]/g, ""));
+  const wordFreq = lowCaseWords.reduce((acc, curr) => {
+    let currCount = 0;
+    if (acc[curr] !== undefined) {
+      currCount = acc[curr];
+    }
+    return {
+      ...acc,
+      [curr]: currCount + 1
+    }
+  }, {});
+  return wordFreq;
 };
