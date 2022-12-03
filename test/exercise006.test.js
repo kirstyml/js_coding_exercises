@@ -1,5 +1,6 @@
 import {
-    sumMultiples
+    sumMultiples,
+    isValidDNA
  } from "../challenges/exercise006.js";
 
  describe("sumMultiples", () => {
@@ -35,4 +36,36 @@ import {
       expect(sumMultiples([2,4,1])).toBe(0);
     });
   
+  });
+
+  describe("isValidDNA", () => {
+    test("it throws an error if str not passed", () => {
+        expect(() => {
+          isValidDNA();
+        }).toThrow("str is required");
+        expect(() => {
+          isValidDNA(["C","G"]);
+        }).toThrow("str is required");
+        expect(() => {
+          isValidDNA(0);
+        }).toThrow("str is required");
+        expect(() => {
+          isValidDNA({});
+        }).toThrow("str is required");
+        expect(() => {
+          isValidDNA(true);
+        }).toThrow("str is required");
+      });
+    test("returns true for a valid DNA string", () => {
+      expect(isValidDNA("CGTA")).toBe(true);
+      expect(isValidDNA("CGTATTTTAAAGCGC")).toBe(true);
+    })
+
+    test("is case sensitive ", () => {
+      expect(isValidDNA("cgta")).toBe(false);
+    })
+
+    test("returns false for an invalid string", () => {
+        expect(isValidDNA("CGATX")).toBe(false);
+    })
   });
