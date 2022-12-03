@@ -3,7 +3,8 @@ import {
     isValidDNA,
     getComplementaryDNA,
     isItPrime,
-    createMatrix
+    createMatrix,
+    areWeCovered
 } from "../challenges/exercise006.js";
 
 describe("sumMultiples", () => {
@@ -147,19 +148,19 @@ describe("isItPrime", () => {
 describe("createMatrix", () => {
     test("it throws an error if number not passed", () => {
         expect(() => {
-            createMatrix(undefined,"foo");
+            createMatrix(undefined, "foo");
         }).toThrow("n is required");
         expect(() => {
-            createMatrix(["C", "G"],"foo");
+            createMatrix(["C", "G"], "foo");
         }).toThrow("n is required");
         expect(() => {
-            createMatrix("0","foo");
+            createMatrix("0", "foo");
         }).toThrow("n is required");
         expect(() => {
-            createMatrix({},"foo");
+            createMatrix({}, "foo");
         }).toThrow("n is required");
         expect(() => {
-            createMatrix(true,"foo");
+            createMatrix(true, "foo");
         }).toThrow("n is required");
     });
     test("it throws an error if fill is not passed", () => {
@@ -169,19 +170,56 @@ describe("createMatrix", () => {
     });
     test("it throws an error if n is not an integer", () => {
         expect(() => {
-            createMatrix(3.4,"foo");
+            createMatrix(3.4, "foo");
         }).toThrow("n must be an integer");
     });
     test("creates correct matrices", () => {
-        expect(createMatrix(3,"foo")).toEqual([["foo","foo","foo"],["foo","foo","foo"],["foo","foo","foo"]]);
-        expect(createMatrix(4,4)).toEqual([[4,4,4,4],[4,4,4,4],[4,4,4,4],[4,4,4,4]]);
-        expect(createMatrix(4,{})).toEqual([[{},{},{},{}],[{},{},{},{}],[{},{},{},{}],[{},{},{},{}]]);
-        expect(createMatrix(3,["foo"])).toEqual([[["foo"],["foo"],["foo"]],[["foo"],["foo"],["foo"]],[["foo"],["foo"],["foo"]]]);
+        expect(createMatrix(3, "foo")).toEqual([["foo", "foo", "foo"], ["foo", "foo", "foo"], ["foo", "foo", "foo"]]);
+        expect(createMatrix(4, 4)).toEqual([[4, 4, 4, 4], [4, 4, 4, 4], [4, 4, 4, 4], [4, 4, 4, 4]]);
+        expect(createMatrix(4, {})).toEqual([[{}, {}, {}, {}], [{}, {}, {}, {}], [{}, {}, {}, {}], [{}, {}, {}, {}]]);
+        expect(createMatrix(3, ["foo"])).toEqual([[["foo"], ["foo"], ["foo"]], [["foo"], ["foo"], ["foo"]], [["foo"], ["foo"], ["foo"]]]);
     });
     test("deals with n is zero correctly", () => {
-        expect(createMatrix(0,"foo")).toEqual([]);
+        expect(createMatrix(0, "foo")).toEqual([]);
     });
     test("deals with decimal integer", () => {
         expect(createMatrix(2.0, "foo")).toEqual([["foo", "foo"], ["foo", "foo"]]);
     })
 });
+
+describe("areWeCovered", () => {
+    test("throws an error if staff is not passed", () => {
+        expect(() => {
+            areWeCovered();
+        }).toThrow("staff is required");
+        expect(() => {
+            areWeCovered("str");
+        }).toThrow("staff array is required");
+        expect(() => {
+            areWeCovered(0);
+        }).toThrow("staff array is required");
+        expect(() => {
+            areWeCovered({});
+        }).toThrow("staff array is required");
+        expect(() => {
+            areWeCovered(true);
+        }).toThrow("staff array is required");
+    });
+    test("throws an error if day is not passed correctly", () => {
+        expect(() => {
+            areWeCovered([])
+        }).toThrow("day is required");
+        expect(() => {
+            areWeCovered([], "monday")
+        }).toThrow("day is required and capitalised");
+    })
+    test("returns true if shift is covered with 3 or more", () => {
+        expect(areWeCovered([{ name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }], "Monday")).toBe(true);
+        expect(areWeCovered([{ name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday"] }, { name: "Sally", rota: ["Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday"] }], "Monday")).toBe(true);
+        expect(areWeCovered([{ name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday"] }, { name: "Sally", rota: ["Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday"] }], "Friday")).toBe(true);
+    });
+    test("returns false if shift is not covered", () => {
+        expect(areWeCovered([], "Wednesday")).toBe(false);
+        expect(areWeCovered([{ name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }, { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }], "Wednesday")).toBe(false);
+    });
+})

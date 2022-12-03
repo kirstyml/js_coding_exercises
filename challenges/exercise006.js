@@ -102,5 +102,9 @@ export const createMatrix = (n, fill) => {
  */
 export const areWeCovered = (staff, day) => {
   if (staff === undefined) throw new Error("staff is required");
+  if (!Array.isArray(staff)) throw new Error("staff array is required");
   if (day === undefined) throw new Error("day is required");
+  if (!["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].includes(day)) throw new Error("day is required and capitalised");
+  const staffIn = staff.filter(person => person.rota.includes(day));
+  return staffIn.length >= 3;
 };
