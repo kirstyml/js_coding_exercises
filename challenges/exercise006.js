@@ -36,6 +36,17 @@ export const isValidDNA = (str) => {
  */
 export const getComplementaryDNA = (str) => {
   if (str === undefined) throw new Error("str is required");
+  if (typeof str !== "string") throw new Error("str is required");
+  if (!isValidDNA(str)) throw new Error("str must be a valid DNA sequence");
+  const bases = str.split("");
+  const complimentaryBases = {
+    T: "A",
+    A: "T",
+    C: "G",
+    G: "C"
+  }
+  const complimentaryDNA = bases.map(base => complimentaryBases[base]);
+  return complimentaryDNA.join("");
 };
 
 /**
