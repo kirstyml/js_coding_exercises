@@ -6,6 +6,13 @@
  */
 export const sumMultiples = (arr) => {
   if (arr === undefined) throw new Error("arr is required");
+  if (!Array.isArray(arr)) throw new Error("arr is required");
+  return arr.reduce((acc, curr) => {
+    if (curr % 3 === 0 || curr % 5 === 0) {
+      return acc + curr;
+    }
+    return acc;
+  }, 0);
 };
 
 /**
