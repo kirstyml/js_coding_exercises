@@ -1,7 +1,8 @@
 import {
     sumMultiples,
     isValidDNA,
-    getComplementaryDNA
+    getComplementaryDNA,
+    isItPrime
 } from "../challenges/exercise006.js";
 
 describe("sumMultiples", () => {
@@ -97,5 +98,24 @@ describe("getComplementaryDNA", () => {
     test("returns the complementary string for a valid DNA string", () => {
         expect(getComplementaryDNA("CGTA")).toBe("GCAT");
         expect(getComplementaryDNA("AAGCTGGTTTTGACGAC")).toBe("TTCGACCAAAACTGCTG");
+    })
+});
+
+describe("isItPrime", () => {
+    test("it returns true when the number is prime", () => {
+        expect(isItPrime(2)).toBe(true);
+        expect(isItPrime(3)).toBe(true);
+        expect(isItPrime(7)).toBe(true);
+        expect(isItPrime(227)).toBe(true);
+        expect(isItPrime(7919)).toBe(true);
+    });
+    test("it returns false when the number is not prime", () => {
+        expect(isItPrime(22)).toBe(false);
+        expect(isItPrime(228)).toBe(false);
+        expect(isItPrime(7918)).toBe(false);
+    });
+    test("gives false for both 0 and 1", () => {
+        expect(isItPrime(0)).toBe(false);
+        expect(isItPrime(1)).toBe(false);
     })
 });
