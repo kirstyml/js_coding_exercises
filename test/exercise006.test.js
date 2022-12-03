@@ -145,8 +145,43 @@ describe("isItPrime", () => {
 });
 
 describe("createMatrix", () => {
+    test("it throws an error if number not passed", () => {
+        expect(() => {
+            createMatrix(undefined,"foo");
+        }).toThrow("n is required");
+        expect(() => {
+            createMatrix(["C", "G"],"foo");
+        }).toThrow("n is required");
+        expect(() => {
+            createMatrix("0","foo");
+        }).toThrow("n is required");
+        expect(() => {
+            createMatrix({},"foo");
+        }).toThrow("n is required");
+        expect(() => {
+            createMatrix(true,"foo");
+        }).toThrow("n is required");
+    });
+    test("it throws an error if fill is not passed", () => {
+        expect(() => {
+            createMatrix(3);
+        }).toThrow("fill is required");
+    });
+    test("it throws an error if n is not an integer", () => {
+        expect(() => {
+            createMatrix(3.4,"foo");
+        }).toThrow("n must be an integer");
+    });
     test("creates correct matrices", () => {
         expect(createMatrix(3,"foo")).toEqual([["foo","foo","foo"],["foo","foo","foo"],["foo","foo","foo"]]);
         expect(createMatrix(4,4)).toEqual([[4,4,4,4],[4,4,4,4],[4,4,4,4],[4,4,4,4]]);
+        expect(createMatrix(4,{})).toEqual([[{},{},{},{}],[{},{},{},{}],[{},{},{},{}],[{},{},{},{}]]);
+        expect(createMatrix(3,["foo"])).toEqual([[["foo"],["foo"],["foo"]],[["foo"],["foo"],["foo"]],[["foo"],["foo"],["foo"]]]);
+    });
+    test("deals with n is zero correctly", () => {
+        expect(createMatrix(0,"foo")).toEqual([]);
+    });
+    test("deals with decimal integer", () => {
+        expect(createMatrix(2.0, "foo")).toEqual([["foo", "foo"], ["foo", "foo"]]);
     })
 });
