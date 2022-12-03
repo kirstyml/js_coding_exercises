@@ -2,7 +2,8 @@ import {
     sumMultiples,
     isValidDNA,
     getComplementaryDNA,
-    isItPrime
+    isItPrime,
+    createMatrix
 } from "../challenges/exercise006.js";
 
 describe("sumMultiples", () => {
@@ -141,4 +142,11 @@ describe("isItPrime", () => {
         expect(isItPrime(17.3)).toBe(false);
         expect(isItPrime(7.5)).toBe(false);
     });
+});
+
+describe("createMatrix", () => {
+    test("creates correct matrices", () => {
+        expect(createMatrix(3,"foo")).toEqual([["foo","foo","foo"],["foo","foo","foo"],["foo","foo","foo"]]);
+        expect(createMatrix(4,4)).toEqual([[4,4,4,4],[4,4,4,4],[4,4,4,4],[4,4,4,4]]);
+    })
 });
