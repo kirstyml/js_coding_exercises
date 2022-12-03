@@ -102,6 +102,23 @@ describe("getComplementaryDNA", () => {
 });
 
 describe("isItPrime", () => {
+    test("it throws an error if number not passed", () => {
+        expect(() => {
+            isItPrime();
+        }).toThrow("n is required");
+        expect(() => {
+            isItPrime(["C", "G"]);
+        }).toThrow("n is required");
+        expect(() => {
+            isItPrime("0");
+        }).toThrow("n is required");
+        expect(() => {
+            isItPrime({});
+        }).toThrow("n is required");
+        expect(() => {
+            isItPrime(true);
+        }).toThrow("n is required");
+    });
     test("it returns true when the number is prime", () => {
         expect(isItPrime(2)).toBe(true);
         expect(isItPrime(3)).toBe(true);
@@ -114,8 +131,14 @@ describe("isItPrime", () => {
         expect(isItPrime(228)).toBe(false);
         expect(isItPrime(7918)).toBe(false);
     });
-    test("gives false for both 0 and 1", () => {
+    test("gives false for both 0, 1 and negative numbers", () => {
         expect(isItPrime(0)).toBe(false);
         expect(isItPrime(1)).toBe(false);
-    })
+        expect(isItPrime(-17)).toBe(false);
+    });
+    test("handles decimal numbers", () => {
+        expect(isItPrime(2.0)).toBe(true);
+        expect(isItPrime(17.3)).toBe(false);
+        expect(isItPrime(7.5)).toBe(false);
+    });
 });
