@@ -119,32 +119,33 @@ export const findWinner = (board) => {
     })
   });
 
-  const getUniqueEntries = (coords, direction) => {
-    return coords.reduce((acc, curr) => {
-      if (!acc.includes(curr[direction])) {
-        acc.push(curr[direction]);
+  const hasDiagonal = (coords) => {
+    console.log(coords);
+    if (coords.filter(coord => coord.r === coord.c).length === 3) {
+      return true;
+    }
+    if (coords.filter(coord => {
+      if(coord.r === 1 && coord.c === 1) {
+        return true;
       }
-      return acc;
-    }, []);
-  };
-
-  const uniqueRowsX = getUniqueEntries(coordsX, "r");
-  const uniqueRows0 = getUniqueEntries(coords0, "r");
-  const uniqueColsX = getUniqueEntries(coordsX, "c");
-  const uniqueCols0 = getUniqueEntries(coords0, "c");
-  
+      if(coord.r === 2 && coord.c === 0) {
+        return true;
+      }
+      if(coord.r === 0 && coord.c === 2) {
+        return true;
+      }
+      return false;
+    }).length === 3) {
+      return true;
+    }
+    return false;
+  }
 
   for (let i = 0; i < 3; i++) {
-    if (coordsX.filter(coord => coord.r === i).length >= 3 || coordsX.filter(coord => coord.c === i).length >= 3) {
+    if (coordsX.filter(coord => coord.r === i).length >= 3 || coordsX.filter(coord => coord.c === i).length >= 3 ||hasDiagonal(coordsX) ) {
       return "X";
     }
-    if (uniqueRowsX.includes(0) && uniqueRowsX.includes(1) && uniqueRowsX.includes(2) && uniqueColsX.includes(0) && uniqueColsX.includes(1) && uniqueColsX.includes(2)) {
-      return "X";
-    }
-    if (coords0.filter(coord => coord.r === i).length >= 3 || coords0.filter(coord => coord.c === i).length >= 3) {
-      return "0";
-    }
-    if (uniqueRows0.includes(0) && uniqueRows0.includes(1) && uniqueRows0.includes(2) && uniqueCols0.includes(0) && uniqueCols0.includes(1) && uniqueCols0.includes(2)) {
+    if (coords0.filter(coord => coord.r === i).length >= 3 || coords0.filter(coord => coord.c === i).length >= 3 || hasDiagonal(coords0)) {
       return "0";
     }
     return null;

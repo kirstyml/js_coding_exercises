@@ -183,5 +183,19 @@ describe("findWinner", () => {
                 ["0", null, "X"]
             ]
         )).toBe("X");
+        expect(findWinner(
+            [
+                ["X", "X", "0"],
+                ["X", "0", "X"],
+                ["0", null, "0"]
+            ]
+        )).toBe("0");
+        expect(findWinner(
+            [
+                ["X", "0", null],
+                ["X", null, "0"],
+                ["0", null, "X"]
+            ]
+        )).toBe(null);
     })
 });
