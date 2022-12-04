@@ -19,11 +19,14 @@ export const sumDigits = (n) => {
  */
 export const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
+  if (typeof start !== "number" || !Number.isInteger(start)) throw new Error("start must be an integer");
   if (end === undefined) throw new Error("end is required");
-  if (step === undefined)
-    console.log(
-      "FYI: Optional step parameter not provided. Remove this check once you've handled the optional step!"
-    );
+  if (typeof end !== "number" || !Number.isInteger(end)) throw new Error("end must be an integer");
+  if (step === undefined) {
+    return Array.from({ length: (end - start) + 1 }, (_, i) => start + i);
+  }
+  if ((end - start) % step !== 0) throw new Error("range is not divisble by step");
+  return Array.from({ length: (end - start) / step + 1 }, (_, i) => start + i * step);
 };
 
 /**
