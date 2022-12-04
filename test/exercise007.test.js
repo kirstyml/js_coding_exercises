@@ -1,7 +1,8 @@
 import {
     sumDigits,
     createRange,
-    getScreentimeAlertList
+    getScreentimeAlertList,
+    hexToRGB
 } from "../challenges/exercise007.js";
 
 describe("sumDigits", () => {
@@ -151,3 +152,9 @@ describe("getScreentimeAlertList", () => {
         )).toEqual([]);
     });
 });
+
+describe("hexToRGB", () => {
+    test("provides correct rgb code for hex input", () => {
+        expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
+    })
+})
