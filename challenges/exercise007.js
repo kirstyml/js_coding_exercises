@@ -120,7 +120,6 @@ export const findWinner = (board) => {
   });
 
   const hasDiagonal = (coords) => {
-    console.log(coords);
     if (coords.filter(coord => coord.r === coord.c).length === 3) {
       return true;
     }
