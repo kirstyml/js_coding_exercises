@@ -4,6 +4,9 @@
  */
 export const sumDigits = (n) => {
   if (n === undefined) throw new Error("n is required");
+  if (typeof n !== "number") throw new Error("n is required");
+  const digitsArr = Array.from(String(n).replace(/\.|\-/g, ''), Number);
+  return digitsArr.reduce((acc,curr) => acc + curr);
 };
 
 /**
