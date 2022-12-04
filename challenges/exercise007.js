@@ -5,7 +5,7 @@
 export const sumDigits = (n) => {
   if (n === undefined) throw new Error("n is required");
   if (typeof n !== "number") throw new Error("n is required");
-  const digitsArr = Array.from(String(n).replace(/\.|\-/g, ''), Number);
+  const digitsArr = Array.from(String(n).replace(/\.|-/g, ''), Number);
   return digitsArr.reduce((acc,curr) => acc + curr);
 };
 
@@ -61,6 +61,18 @@ export const createRange = (start, end, step) => {
 export const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
   if (date === undefined) throw new Error("date is required");
+  const usersToAlert = [];
+  users.forEach((user) => {
+    const usageForDate = user.screenTime.find(stObj => stObj.date === date) ? user.screenTime.find(stObj => stObj.date === date).usage : {};
+    let totalUsage = 0;
+    for (let key in usageForDate) {
+      totalUsage += usageForDate[key];
+    }
+    if (totalUsage > 100) {
+      usersToAlert.push(user.username);
+    }
+  });
+  return usersToAlert;
 };
 
 /**
