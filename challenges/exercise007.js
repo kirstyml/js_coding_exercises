@@ -105,4 +105,48 @@ export const hexToRGB = (hexStr) => {
  */
 export const findWinner = (board) => {
   if (board === undefined) throw new Error("board is required");
+  // need coordinates fir X and 0 positions
+  const coordsX = [];
+  const coords0 = [];
+  board.forEach((row,i) => {
+    row.forEach((space, j) => {
+      if(space === "X") {
+        coordsX.push({ r: i, c: j});
+      }
+      if(space === "0") {
+        coords0.push({ r: i, c: j});
+      }
+    })
+  });
+
+  const getUniqueEntries = (coords, direction) => {
+    return coords.reduce((acc, curr) => {
+      if (!acc.includes(curr[direction])) {
+        acc.push(curr[direction]);
+      }
+      return acc;
+    }, []);
+  };
+
+  const uniqueRowsX = getUniqueEntries(coordsX, "r");
+  const uniqueRows0 = getUniqueEntries(coords0, "r");
+  const uniqueColsX = getUniqueEntries(coordsX, "c");
+  const uniqueCols0 = getUniqueEntries(coords0, "c");
+  
+
+  for (let i = 0; i < 3; i++) {
+    if (coordsX.filter(coord => coord.r === i).length >= 3 || coordsX.filter(coord => coord.c === i).length >= 3) {
+      return "X";
+    }
+    if (uniqueRowsX.includes(0) && uniqueRowsX.includes(1) && uniqueRowsX.includes(2) && uniqueColsX.includes(0) && uniqueColsX.includes(1) && uniqueColsX.includes(2)) {
+      return "X";
+    }
+    if (coords0.filter(coord => coord.r === i).length >= 3 || coords0.filter(coord => coord.c === i).length >= 3) {
+      return "0";
+    }
+    if (uniqueRows0.includes(0) && uniqueRows0.includes(1) && uniqueRows0.includes(2) && uniqueCols0.includes(0) && uniqueCols0.includes(1) && uniqueCols0.includes(2)) {
+      return "0";
+    }
+    return null;
+  }
 };

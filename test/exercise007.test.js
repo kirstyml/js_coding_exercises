@@ -2,7 +2,8 @@ import {
     sumDigits,
     createRange,
     getScreentimeAlertList,
-    hexToRGB
+    hexToRGB,
+    findWinner
 } from "../challenges/exercise007.js";
 
 describe("sumDigits", () => {
@@ -157,4 +158,30 @@ describe("hexToRGB", () => {
     test("provides correct rgb code for hex input", () => {
         expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
     })
-})
+});
+
+describe("findWinner", () => {
+    test("provides correct winner", () => {
+        expect(findWinner(
+            [
+                ["X", "0", null],
+                ["X", null, "0"],
+                ["X", null, "0"]
+            ]
+        )).toBe("X");
+        expect(findWinner(
+            [
+                ["0", "X", null],
+                ["0", null, "X"],
+                ["0", null, "X"]
+            ]
+        )).toBe("0");
+        expect(findWinner(
+            [
+                ["X", "0", null],
+                ["X", "X", "0"],
+                ["0", null, "X"]
+            ]
+        )).toBe("X");
+    })
+});
